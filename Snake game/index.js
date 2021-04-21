@@ -43,8 +43,7 @@ function move() {
     //add styling so we can see it
     
     //deal with snake head gets apple
-    console.log(squares[appleIndex])
-    console.log(squares[currentSnake[0]])
+
     if (squares[currentSnake[0]].classList.contains('apple')) {
         //remove the class of apple
         squares[currentSnake[0]].classList.remove('apple')
