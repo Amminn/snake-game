@@ -9,6 +9,7 @@ let appleIndex = 0
 let score = 0
 let intervalTime = 1000
 let speed = 0.9
+let timerId = 0
 
 function createGrid() {
     //create 100 of these elements with a for loop
@@ -27,6 +28,24 @@ createGrid()
 
 currentSnake.forEach(index => squares[index].classList.add('snake'))
 
+function startGame() {
+    //remove the snake
+    currentSnake.forEach(index => squares[index].classList.remove('snake'))
+    //remove the apple
+    squares[appleIndex].classList.remove('apple')
+    clearInterval(timerId)
+    currentSnake = [2,1,0]
+    score = 0
+    //re add new score to browser
+    scoreDisplay.textContent = score
+    direction = 1
+    intervalTime = 1000
+    generateApple()
+    //readd the class of snake to our new currentSnake
+    currentSnake.forEach(index => index)
+    timerId = setInterval(move, intervalTime)
+}
+
 function move() {
     if (
         (currentSnake[0] + width >= width*width && direction === width) || //if snake has hit bottom
@@ -35,7 +54,7 @@ function move() {
         (currentSnake[0] - width < 0 && direction === -width) || //if snake has hit top
         squares[currentSnake[0] + direction].classList.contains('snake')
     )
-    return clearInterval(timerId) , alert("don't hit the wall or eat your self")
+    return clearInterval(timerId)
 
     //remove last element from our currentSnake array
     const tail = currentSnake.pop()
@@ -63,6 +82,7 @@ function move() {
         scoreDisplay.textContent = score
         //speed up our snake
         clearInterval(timerId)
+        console.log(intervalTime)
         intervalTime = intervalTime * speed
         console.log(intervalTime)
         timerId = setInterval(move, intervalTime)
@@ -72,9 +92,9 @@ function move() {
     
     squares[currentSnake[0]].classList.add('snake')
 }
-move()
 
-let timerId = setInterval(move, intervalTime)
+
+
 
 
 
@@ -84,8 +104,8 @@ function generateApple() {
     } while (squares[appleIndex].classList.contains('snake'))
     squares[appleIndex].classList.add('apple')
 } 
-
 generateApple()
+
 // 39 is right arrow
 // 38 is for the up arrow
 // 37 is for the left arrow
@@ -107,3 +127,4 @@ function control(e) {
     }
 }
 document.addEventListener('keyup', control)
+startButton.addEventListener('click', startGame)
