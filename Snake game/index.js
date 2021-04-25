@@ -42,7 +42,7 @@ function startGame() {
     intervalTime = 1000
     generateApple()
     //readd the class of snake to our new currentSnake
-    currentSnake.forEach(index => index)
+    currentSnake.forEach(index => squares[index].classList.add('snake'))
     timerId = setInterval(move, intervalTime)
 }
 
